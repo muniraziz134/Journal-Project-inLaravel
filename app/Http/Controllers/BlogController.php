@@ -3,8 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Paper;
 
-class User_ContactController extends Controller
+class BlogController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -13,7 +14,10 @@ class User_ContactController extends Controller
      */
     public function index()
     {
-        //
+        $papers = Paper::all();
+        return view('home', [
+            'papers' => $papers,
+        ]);
     }
 
     /**

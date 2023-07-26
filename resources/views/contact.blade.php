@@ -20,44 +20,47 @@
                      </div>
                      <div class="col-md-8">
                          <div class="card p-4">
-                             <div class="card-body">
-                                 <h3 class="text-center">Please fill out this form to contact us</h3>
-                                 <hr>
-                                 <div class="row">
-                                     <div class="col-md-6">
-                                         <div class="form-group">
-                                             <input type="text" class="form-control" placeholder="First Name">
-                                         </div>
-                                     </div>
-                                     <div class="col-md-6">
-                                         <div class="form-group">
-                                             <input type="text" class="form-control" placeholder="Last Name">
-                                         </div>
-                                     </div>
-                                     <div class="col-md-6">
-                                         <div class="form-group">
-                                             <input type="text" class="form-control" placeholder="Email">
-                                         </div>
-                                     </div>
-                                     <div class="col-md-6">
-                                         <div class="form-group">
-                                             <input type="text" class="form-control" placeholder="Phone Number">
-                                         </div>
-                                     </div>
-                                 </div>
-                                 <div class="row">
-                                     <div class="col-md-12">
-                                         <div class="form-group">
-                                             <textarea class="form-control" placeholder="Message"></textarea>
-                                         </div>
-                                     </div>
-                                     <div class="col-md-12">
-                                         <input type="submit" class="btn btn-outline-danger btn-block">
-                                     </div>
-                                 </div>
-                             </div>
-                         </div>
-                     </div>
+                             <form method='POST' action="{{ route('contact.store') }}">
+                                @csrf
+                                <div class="card-body">
+                                    <h3 class="text-center">Please fill out this form to contact us</h3>
+                                    <hr>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <input name="firstName" type="text" class="form-control" placeholder="First Name">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <input name="lastName" type="text" class="form-control" placeholder="Last Name">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <input name="email" type="text" class="form-control" placeholder="Email">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <input name="phoneNumber" type="text" class="form-control" placeholder="Phone Number">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <textarea name="message" class="form-control" placeholder="Message"></textarea>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <input type="submit" class="btn btn-outline-danger btn-block">
+                                        </div>
+                                    </div>
+                                </div>
+                            </from>
+                            </div>
+                        </div>
                  </div>
              </div>
          </section>
