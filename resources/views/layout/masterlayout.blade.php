@@ -30,24 +30,45 @@
                             <img src="{{ asset('img/د مدرسې  لوګو.jpg') }}" alt="logo"
                                 class="rounded-circle imge-fluid" width="80" height="80px" />
                             <h4 class="text-white align-self-center">
-                                Internatioanl journal <br />of Education and research
+                                {{ __('he_fo_nav.title') }} <br />{{ __('he_fo_nav.S_title') }}
                             </h4>
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="d-flex flex-row justify-content-around">
                             <h4 class="text-white align-self-center d-none d-sm-block">
-                                Kandahar Univercity <br />of Education and research
+                                {{ __('he_fo_nav.Title') }} <br /> {{ __('he_fo_nav.S_Title') }} 
                             </h4>
                             <img src="{{ asset('img/د مدرسې  لوګو.jpg') }}" alt="logo"
                                 class="rounded-circle imge-fluid d-none d-sm-block" width="80px" height="80px" />
                         </div>
                         <div class="dropdown">
-                            <select name="" id="">
-                                <option value="1">English</option>
-                                <option value="2">Dari</option>
-                                <option value="3">Arabic</option>
-                            </select>
+                           
+                            <ul>
+                                <select onchange="changeLanguage(this)">
+                                    @foreach (LaravelLocalization::getSupportedLocales() as $localeCode => $properties)
+                                        <option value="{{ $localeCode }}" @if (LaravelLocalization::getCurrentLocale() === $localeCode) selected @endif>
+                                            {{ $properties['native'] }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                                
+                                <script>
+                                    function changeLanguage(selectElement) {
+                                        const selectedLocale = selectElement.value;
+                                        const currentUrl = window.location.href;
+                                
+                                        // Use LaravelLocalization's JavaScript function to get the localized URL
+                                        const localizedUrl = LaravelLocalization.localizedUrl(selectedLocale, currentUrl);
+                                
+                                        // Redirect to the selected localized URL
+                                        window.location.href = localizedUrl;
+                                    }
+                                </script>
+                                
+                                
+                            </ul>
+                            
                         </div>
                     </div>
                 </div>
@@ -62,29 +83,42 @@
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav ml-auto">
                         <li class="nav-item active">
-                        
-                            <a href="{{ route('home') }}" class="nav-link">Home</a>
+        
+                            <a href="{{ route('home') }}" class="nav-link">{{ __('he_fo_nav.home') }}</a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ route('about') }}" class="nav-link">About Us</a>
+                            <a href="{{ route('about') }}" class="nav-link">{{ __('he_fo_nav.about') }}</a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ route('editorial') }}" class="nav-link">Editorail Board</a>
+                            <a href="{{ route('editorial') }}" class="nav-link">{{ __('he_fo_nav.Editorial') }}</a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ route('blog') }}" class="nav-link">Blog</a>
+                            <a href="{{ route('blog') }}" class="nav-link">{{ __('he_fo_nav.blog') }}</a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ route('autherguide') }}" class="nav-link">Auther GuideLine</a>
+                            <a href="{{ route('autherguide') }}" class="nav-link">{{ __('he_fo_nav.authorguide') }} </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ route('contact') }}" class="nav-link">Contact Us</a>
+                            <a href="{{ route('contact') }}" class="nav-link">{{ __('he_fo_nav.contact') }}</a>
+                        </li>
+                        <li>
+                            <a href="{{route('dashboard') }}" class="nav-link">{{ __('he_fo_nav.dashboard')}}</a>
                         </li>
                     </ul>
 
                 </div>
-                <a href="{{ route('signup') }}" class="btn btn-info mr-1 ml-auto">Sign Up Now</a>
-                <a href="{{ route('login') }}" class="btn btn-info">Login Now</a>
+                @auth
+                <form method="POST" action="{{ route('logout') }}">
+                    @csrf
+                    <button type="submit" class="btn btn-danger underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                        {{ __('he_fo_nav.Log Out') }}
+                    </button>
+                </form>
+                @endauth
+                @guest
+                <a href="{{ route('signup') }}" class="btn btn-info mr-1 ml-auto">{{ __('he_fo_nav.signup') }}</a>
+                <a href="{{ route('login') }}" class="btn btn-info">{{ __('he_fo_nav.login') }}</a>
+                @endguest
             </div>
 
         </nav>
@@ -107,8 +141,8 @@
                             <div class="single-cta">
                                 <i class="fas fa-map-marker"></i>
                                 <div class="cta-text">
-                                    <h4>Find Us</h4>
-                                    <span> KDR University Sharaih Faculty</span>
+                                    <h4>{{ __('he_fo_nav.Find') }}</h4>
+                                    <span> {{ __('he_fo_nav.faculty') }}</span>
                                 </div>
                             </div>
                         </div>
@@ -117,8 +151,8 @@
                             <div class="single-cta">
                                 <i class="fas fa-phone"></i>
                                 <div class="cta-text">
-                                    <h4>Call Us</h4>
-                                    <span>+93 718478545</span>
+                                    <h4>{{ __('he_fo_nav.Call') }}</h4>
+                                    <span>{{ __('he_fo_nav.phone') }}</span>
                                 </div>
                             </div>
                         </div>
@@ -127,8 +161,8 @@
                             <div class="single-cta">
                                 <i class="fas fa-envelope-open"></i>
                                 <div class="cta-text">
-                                    <h4>Email Us</h4>
-                                    <span>Sharaih Faculty@gmail.com</span>
+                                    <h4>{{ __('he_fo_nav.Email') }}</h4>
+                                    <span>{{ __('he_fo_nav.email_address') }}</span>
                                 </div>
                             </div>
                         </div>
@@ -143,12 +177,10 @@
                                             class="img-fluid"></a>
                                 </div>
                                 <div class="footer-text">
-                                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Pariatur,Lorem ipsum
-                                        dolor
-                                        sit amet, consectetur adipisicing elit. Ut, possimus? error?</p>
+                                    <p>{{ __('he_fo_nav.footer_text') }}</p>
                                 </div>
                                 <div class="footer-social-icon">
-                                    <span>Follow Us</span>
+                                    <span>{{ __('he_fo_nav.Follow') }}</span>
                                     <a href="#"> <i class="fab fa-facebook-f facebook-bg"></i></a>
                                     <a href="#"> <i class="fab fa-twitter twitter-bg"></i></a>
                                     <a href="#"> <i class="fab fa-instagram instagram-bg"></i></a>
@@ -159,26 +191,29 @@
                         <div class="col-lg-4">
                             <div class="footer-widget">
                                 <div class="footer-widget-heading">
-                                    <h3> Useful Links</h3>
+                                    <h3>{{ __('he_fo_nav.link') }}</h3>
                                 </div>
                                 <ul>
                                     <li>
-                                        <a href="{{ route('home') }}">Home</a>
+                                        <a href="{{ route('home') }}" class="nav-link">{{ __('he_fo_nav.home') }}</a>
+                                    </li>
+                                    <li class="nav-item ">
+                                        <a href="{{ route('about') }}" class="nav-link">{{ __('he_fo_nav.about') }}</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a href="{{ 'about' }}">About Us</a>
+                                        <a href="{{ route('editorial') }}"
+                                            class="nav-link">{{ __('he_fo_nav.Editorial') }}</a>
+                                    </li>
+                                    <li class="nav-item ">
+                                        <a href="{{ route('blog') }}" class="nav-link">{{ __('he_fo_nav.blog') }}</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a href="{{ 'editorial' }}">Editorail Board</a>
+                                        <a href="{{ route('autherguide') }}"
+                                            class="nav-link">{{ __('he_fo_nav.authorguide') }}</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a href="{{ 'blog' }}">Blog</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="{{ 'contact' }}">Contact Us</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="{{ 'autherguide' }}">AutherGuideLine</a>
+                                        <a href="{{ route('contact') }}"
+                                            class="nav-link">{{ __('he_fo_nav.contact') }}</a>
                                     </li>
                                 </ul>
                             </div>
@@ -187,14 +222,14 @@
                         <div class="col-lg-4 col-sm-6">
                             <div class="footer-widget">
                                 <div class="footer-widget-heading">
-                                    <h3>Subscribe</h3>
+                                    <h3>{{ __('he_fo_nav.Subscrib') }}</h3>
                                 </div>
                                 <div class="footer-text">
-                                    <p>Dont miss to suscribe to our new feeds ,please fill the form below </p>
+                                    <p>{{__('he_fo_nav.subscrib')}}</p>
                                 </div>
 
                                 <div class="suscribe-form input-group mb-3">
-                                    <input type="text" class="form-control" placeholder="Email">
+                                    <input type="text" class="form-control" placeholder="{{ __('he_fo_nav.Email') }}">
                                     <span><button><i class="fab fa-telegram-plane"></i></button></span>
                                 </div>
                             </div>
@@ -208,8 +243,7 @@
 
                         <div class="col-xl-6 col-lg-6 text-center text-lg-left">
                             <div class="copyright-text">
-                                <p>copyright &copy; 2023, All Right Are Reserved</p>
-
+                                <p>{{ __('he_fo_nav.copyright') }} &copy; {{ __('he_fo_nav.reserved') }}</p>
                             </div>
                         </div>
 
@@ -217,16 +251,16 @@
                             <div class="footer-menu">
                                 <ul>
                                     <li>
-                                        <a href="{{ route('home') }}">Home</a>
+                                        <a href="{{ route('home') }}">{{ __('he_fo_nav.home') }}</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a href="{{ route('autherguide') }}">Privacy</a>
+                                        <a href="{{ route('autherguide') }}">{{ __('he_fo_nav.authorguide') }}</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a href="{{ route('autherguide') }}">policy</a>
+                                        <a href="{{ route('autherguide') }}">{{ __('he_fo_nav.authorguide') }}</a>
                                     </li>
                                     <li>
-                                        <a href="{{ route('contact') }}">Contact Us</a>
+                                        <a href="{{ route('contact') }}">{{ __('he_fo_nav.contact') }}</a>
                                     </li>
                                 </ul>
                             </div>

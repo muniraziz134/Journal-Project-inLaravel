@@ -16,9 +16,11 @@ return new class extends Migration {
             $table->id();
             $table->string('title');
             $table->string('category');
-            $table->string('author');
-            $table->string('imageUrl')->default('image.png');
+            $table->string('coverPhoto')->default('image.png');
             $table->string('description')->nullable();
+            $table->string('article')->nullable();
+            $table->string('status')->default('pending');
+            $table->foreignId('author_id')->constrained('users')->onDelete('cascade');
             $table->timestamps();
         });
     }

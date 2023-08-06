@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Paper;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class PaperController extends Controller
 {
@@ -37,35 +38,47 @@ class PaperController extends Controller
      */
     public function store(Request $request)
     {
-        // $validatedData = $request->validate([
-        //     'title' => 'required|string|max:255',
-        //     'author' => 'required|string|max:255',
-        //     'category' => 'required|string|max:255',
-        //     'description' => 'required|string|max:255',
-        //     'imageUrl' => 'required|file|image'
-        // ]);
-        // // if ($request->hasFile('image')) {
-        //     $fileNameWithExt = $request->file('image')->getClientOriginalName();
-        //     $filename = pathinfo($fileNameWithExt, PATHINFO_FILENAME);
-        //     $extension = $request->file('image')->getClientOriginalExtension();
-        //     $name = time() . '.' . $extension;
-        //     $image = $request->file('image')->storeAs('public/Paper', $name);
-        //     $imageUrl = '/storage/Paper/' . $name;
+        $validatedData = $request->validate([
+            'title' => 'required|string|max:255',
+            'authorId' => 'required|numeric|max:255',
+            'category' => 'required|string|max:255',
+            'description' => 'required|string|max:255',
+            'coverPhoto' => 'required|file|image',
+            'article' => 'required|file',
+        ]);
+        if ($request->hasFile('coverPhoto')) {
+            $fileNameWithExt = $request->file('coverPhoto')->getClientOriginalName();
+            $filename = pathinfo($fileNameWithExt, PATHINFO_FILENAME);
+            $extension = $request->file('coverPhoto')->getClientOriginalExtension();
+            $name = time() . '.' . $extension;
+            $image = $request->file('coverPhoto')->storeAs('public/Paper', $name);
+            $coverPhoto = '/storage/Paper/' . $name;
 
-        // } else {
-        //     $imageUrl = '';
-        // }
+        } else {
+            $coverPhoto = '';
+        }
+
+        if ($request->hasFile('article')) {
+            $fileNameWithExt = $request->file('article')->getClientOriginalName();
+            $filename = pathinfo($fileNameWithExt, PATHINFO_FILENAME);
+            $extension = $request->file('article')->getClientOriginalExtension();
+            $name = time() . '.' . $extension;
+            $image = $request->file('article')->storeAs('public/Paper', $name);
+            $article = '/storage/Paper/' . $name;
+        } else {
+            $article = '';
+        }
 
         $paper = new Paper;
         $paper->title = $request->title;
-        $paper->author = $request->author;
+        $paper->author_id = $request->authorId;
         $paper->category = $request->category;
         $paper->description = $request->description;
-        // $paper->imageUrl = $imageUrl;
+        $paper->coverPhoto = $coverPhoto;
+        $paper->article = $article;
 
         $paper->save();
-
-        return redirect()->route('blog', $paper->id);
+        return redirect()->route('home');
     }
 
 
@@ -137,9 +150,40 @@ class PaperController extends Controller
         return redirect()->route('paper.index');
     }
 
-    public function showPosts()
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function publish(Request $request)
     {
-        $papers = Paper::all();
-        return view('blog', [ 'papers' => $papers, ]);
+        $id = $request->id;
+        $paper = Paper::find($id);
+        $paper->status = 'published';
+        $paper->save();
+        return redirect()->route('blog');
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function download(Request $request)
+    {
+        $file = '1690368758.pdf';
+        $path = storage_path('storage/app/public/Paper/1690368758.pdf');
+
+        if (file_exists($path)) {
+            return response()->download($path, $file, [
+                'Content-Type' => 'application/pdf',
+                'Content-Disposition' => 'attachment; filename="' . $file . '"',
+            ]);
+        } else {
+            abort(404, 'File not found.');
+        }
+
     }
 }

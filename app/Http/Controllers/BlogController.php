@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\Models\Paper;
 
 class BlogController extends Controller
@@ -14,8 +15,10 @@ class BlogController extends Controller
      */
     public function index()
     {
-        $papers = Paper::all();
-        return view('home', [
+        $papers = DB::table('papers')
+            ->join('users', 'users.id', '=', 'papers.author_id')->where('status', '=', 'published')->get();
+        // return $papers;
+        return view('blog', [
             'papers' => $papers,
         ]);
     }

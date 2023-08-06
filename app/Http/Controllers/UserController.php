@@ -13,8 +13,12 @@ class UserController extends Controller
      */
     public function index()
     {
-        //
+        $user = DB::table('users')->where('users.id', '=', '')->join()->get();
+        return view('user', [
+            'users' => $user,
+        ]);
     }
+
 
     /**
      * Show the form for creating a new resource.
@@ -23,7 +27,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        
+
     }
 
     /**

@@ -7,10 +7,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta name="description" content="" />
     <meta name="author" content="" />
-    <title>Login - SB Admin</title>
+    <title>Login </title>
     <link href="{{ asset('css/styles.css') }}" rel="stylesheet" />
     <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
-    <!-- <link rel="stylesheet" href="./bootstrap/bootstrap.min.css"> -->
+    
     <link rel="stylesheet" href="{{ asset('css/bootstrap.css') }}">
 </head>
 
@@ -26,33 +26,36 @@
                                     <h3 class="text-center font-weight-light-bold my-4">Login</h3>
                                 </div>
                                 <div class="card-body">
-                                    <form>
+                                    <form method="POST" action="{{ route('login') }}">
+                                        @csrf
                                         <div class="form-floating mb-2">
-                                            <input type="email" class="form-control py-3" id="inputEmail"
-                                                placeholder="Email">
+                                            <input name="email" type="email" class="form-control py-3" id="inputEmail"
+                                                placeholder="Email" :value="old('email')">
                                             <label for="email"></label>
                                         </div>
                                         <div class="form-floating mb-2">
-                                            <input type="password" class="form-control py-3" id="inputPassword"
-                                                placeholder="password">
+                                            <input name="password" type="password" class="form-control py-3" id="inputPassword"
+                                            placeholder="password">
                                             <label for="password"></label>
+                                            <x-input-error :messages="$errors->get('password')" class="mt-2" />
                                         </div>
+                                        <x-input-error :messages="$errors->get('email')" class="mt-2" />
                                         <div class="form-check mb-2 ml-3">
                                             <input type="checkbox" class="form-check-input" id="inputRememberPassword"
-                                                value="/">
+                                            value="/">
                                             <label for="inputRememberPassword">Remember Password</label>
                                         </div>
                                         <div class="d-flex align-items-center justify-content-between mt-4 mb-0">
                                             <a class="small" href="#"
                                                 style=" font-size: 15px; text-decoration: underline;">Forgot
                                                 Password?</a>
-                                            <a class="btn btn-primary" href="{{ route('home') }}">Login</a>
+                                            <button class="btn btn-primary">Login</button>
                                         </div>
                                     </form>
                                 </div>
                                 <div class="card-footer text-center py-4">
                                     <div class="small" style="font-size: 15px; text-decoration: underline;"> <a
-                                            href="{{ route('signup') }}">Need an account? Sign Up!</a></div>
+                                            href="{{ route('register') }}">Need an account? Sign Up!</a></div>
                                 </div>
                             </div>
                         </div>

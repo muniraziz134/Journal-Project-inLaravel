@@ -14,10 +14,8 @@
                 <div class="carousel-item carousel-image-1 active">
                     <div class="container">
                         <div class="carousel-caption d-none d-sm-block text-right mb-5">
-                            <h1 class="display-3">Welcome to our Journal</h1>
-                            <p class="lead">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Recusandae
-                                consequuntur architecto eius magni nobis nulla eaque. Deserunt sunt, distinctio quos.
-                            </p>
+                            <h1 class="display-3">{{__ ('home.welcome') }}</h1>
+                            <p class="lead">{{__ ('home.afterWelcome') }}</p>
 
                         </div>
 
@@ -71,20 +69,16 @@
                 </div>
 
                 <div class="col-md-6">
-                    <h3>Expoler and Connect</h3>
+                    <h3>{{__ ('home.Explor')}}</h3>
                     <p class="">
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Repellat
-                        sunt nostrum similique dolorum. Rem dolor aperiam unde sequi
-                        suscipit dignissimos explicabo illo praesentium, optio sapiente.
+                        {{__ ('home.InExplor')}}
                     </p>
                     <div class="d-flex flex-row">
                         <div class="p-4 align-self-start">
                             <i class="fa fa-check"></i>
                         </div>
                         <div class="p-4 align-self-start">
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Id
-                            laborum magnam facere reiciendis quaerat ducimus asperiores
-                            corporis,
+                            {{__ ('home.afterExplor')}}
                         </div>
                     </div>
 
@@ -96,11 +90,11 @@
         <div class="container">
             <div class="d-flex align-items-center ">
                 <div>
-                    <h3 class="mb-3">Sign Up For newalatter</h3>
+                    <h3 class="mb-3"> {{__ ('home.signup_bu')}}</h3>
                 </div>
                 <div class="input-group input-news">
-                    <input type="text" placeholder="Enter Email" class="form-control">
-                    <button class="btn btn-warning btn-lg" type="button">Button</button>
+                    <input type="text" placeholder="{{__ ('home.Enter')}}" class="form-control">
+                    <button class="btn btn-warning btn-lg" type="button">{{__ ('home.Button')}}</button>
                 </div>
             </div>
         </div>
@@ -108,7 +102,7 @@
     <section class="py-5">
         <div class="container">
             <div class="text-center bg-dark text-white py-2 mb-3 ">
-                <h2>New posts</h2>
+                <h2>{{__ ('home.newPost')}}</h2>
             </div>
             <div class="row">
                 <div class="col-md">
@@ -175,10 +169,8 @@
             <div class="row">
                 <div class="col">
                     <div class="container pt-5">
-                        <h1>Are You Ready To Get Started?</h1>
-                        <p class="d-none d-md-block">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Expedita
-                            voluptates, consequatur labore placeat doloremque dignissimos exercitationem esse fuga
-                            laborum ex!</p>
+                        <h1>{{__ ('home.Getready')}}</h1>
+                        <p class="d-none d-md-block">{{__ ('home.aftergetready')}}</p>
                     </div>
                 </div>
             </div>
@@ -189,10 +181,9 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-6 align-self-center">
-                    <h3>Lorem Ipsum</h3>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium beatae eaque quos eligendi,
-                        laboriosam. Culpa consequuntur illum facere id molestias.</p>
-                    <a href="#" class="btn btn-outline-danger btn-lg">Learn More</a>
+                    <h3>{{__ ('home.info')}}</h3>
+                    <p>{{__ ('home.afterInfo')}}</p>
+                    <a href="#" class="btn btn-outline-danger btn-lg">{{__ ('home.readmore')}}</a>
                 </div>
                 <div class="col-md-6">
                     <img src="{{ asset('img/laptop.png') }}" class="img-fluid" alt="">
@@ -211,7 +202,7 @@
                             data-target="#videoModal">
                             <i class="fa fa-play"></i>
                         </a>
-                        <h1>See Guide for publishing Articles</h1>
+                        <h1>{{__ ('home.Giude')}}</h1>
                     </div>
                 </div>
             </div>
@@ -220,8 +211,8 @@
     <!-- Top Paper GALLERY -->
     <section id="gallery" class="py-5">
         <div class="container">
-            <h1 class="text-center">Articles Gallery</h1>
-            <p class="text-center">Most papular Articles</p>
+            <h1 class="text-center">{{__ ('home.Article')}}</h1>
+            <p class="text-center">{{__ ('home.papuler')}}</p>
             <div class="row mb-4">
                 <div class="col-md-4 mb-3">
                     <img src="{{ asset('img/best1.jpg') }}" alt="" class="img-fluid">

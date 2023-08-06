@@ -31,15 +31,12 @@
                                     <form method="POST" action="{{ route('paper.store') }}" class="Custom_Form"
                                         enctype="multipart/form-data">
                                         @csrf
-
-
                                         <div class="form-group">
                                             <label for="title">Title</label>
                                             <input type="text" class="form-control" name="title">
                                         </div>
                                         <div class="form-group">
-                                            <label for="title">Author</label>
-                                            <input type="text" class="form-control" name="author">
+                                            <input type="hidden" class="form-control" name="authorId" value="{{ auth()->id() }}">
                                         </div>
                                         <div class="form-group">
                                             <label for="category">Category</label>
@@ -47,12 +44,12 @@
                                         </div>
                                         <div class="form-group">
                                             <label for="file">Article Upload</label>
-                                            <input type="file" class="form-control-file" name="Artical">
+                                            <input type="file" class="form-control-file" name="article">
                                             <small class="form-text text-muted">Max Size 3mb</small>
                                         </div>
                                         <div class="form-group">
                                             <label for="file"> Cover photo Upload</label>
-                                            <input type="file" class="form-control-file" name="imageUrl">
+                                            <input type="file" class="form-control-file" name="coverPhoto">
                                             <small class="form-text text-muted">Max Size 2mb</small>
                                         </div>
                                         <div class="form-group">
