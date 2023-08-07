@@ -45,28 +45,13 @@
                         <div class="dropdown">
                            
                             <ul>
-                                <select onchange="changeLanguage(this)">
-                                    @foreach (LaravelLocalization::getSupportedLocales() as $localeCode => $properties)
-                                        <option value="{{ $localeCode }}" @if (LaravelLocalization::getCurrentLocale() === $localeCode) selected @endif>
+                                @foreach(LaravelLocalization::getSupportedLocales() as $localeCode => $properties)
+                                    <li>
+                                        <a rel="alternate" hreflang="{{ $localeCode }}" href="{{ LaravelLocalization::getLocalizedURL($localeCode, null, [], true) }}">
                                             {{ $properties['native'] }}
-                                        </option>
-                                    @endforeach
-                                </select>
-                                
-                                <script>
-                                    function changeLanguage(selectElement) {
-                                        const selectedLocale = selectElement.value;
-                                        const currentUrl = window.location.href;
-                                
-                                        // Use LaravelLocalization's JavaScript function to get the localized URL
-                                        const localizedUrl = LaravelLocalization.localizedUrl(selectedLocale, currentUrl);
-                                
-                                        // Redirect to the selected localized URL
-                                        window.location.href = localizedUrl;
-                                    }
-                                </script>
-                                
-                                
+                                        </a>
+                                    </li>
+                                @endforeach
                             </ul>
                             
                         </div>
