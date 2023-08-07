@@ -13,17 +13,14 @@ return [
     accusamus provident dignissimos numquam fuga nulla quia voluptatibus, dolore voluptate excepturi
     accusantium dolores temporibus fugit, voluptas velit omnis!",
 
-    "chat" => "Chat with us",
+    "chat" => " Islamic teachings",
 
-    "chat_message" => "Yun can chat with us, from sterday to tuseday",
+    "chat_message" => "In this section of the faculty, we will provide you with information on Islamic education, such as jurisprudence",
 
 
 
-    "announcement" => "Lets do Announcement For our Journal",
-    "announcement_message" => "you can Annoucement for our website to reach everyone",
-
-    "Time" => "Our Active Time on Website",
-    "Time_message" => "We Active From Sterday to Tuseday and from 8:00 AM to 5:00 PM",
+    "announcement" => "Judiciary and prosecution",
+    "announcement_message" => " In this section, we teach the students about the judiciary and the attorney",
 
 
 

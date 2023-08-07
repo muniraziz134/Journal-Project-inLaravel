@@ -38,14 +38,14 @@ Route::group(['prefix' => LaravelLocalization::setLocale()], function () {
 
         Route::resource('paper', PaperController::class);
 
-        // Route::middleware('communityMember')->group(function () {
-        Route::post('/published', [PaperController::class, 'publish'])->name('paper.publish');
-        // Route::middleware('admin')->group(function () {
-        Route::get('/dashboard', [ProfileController::class, 'dashboard'])->name('dashboard');
+        Route::middleware('communityMember')->group(function () {
+            Route::post('/published', [PaperController::class, 'publish'])->name('paper.publish');
+            Route::middleware('admin')->group(function () {
+                Route::get('/dashboard', [ProfileController::class, 'dashboard'])->name('dashboard');
 
-        // });
-        Route::post('/published', [PaperController::class, 'publish'])->name('paper.publish');
-        // });
+            });
+            Route::post('/published', [PaperController::class, 'publish'])->name('paper.publish');
+        });
 
     });
 
