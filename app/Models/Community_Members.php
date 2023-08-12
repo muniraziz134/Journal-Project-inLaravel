@@ -8,4 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class Community_Members extends Model
 {
     use HasFactory;
+
+    public $table = 'community_members';
 }

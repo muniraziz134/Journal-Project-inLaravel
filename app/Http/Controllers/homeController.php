@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Paper;
 use Illuminate\Http\Request;
 
 class homeController extends Controller
@@ -41,14 +42,13 @@ class homeController extends Controller
      * Display the specified resource.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
      */
     public function show()
     {
-        return view('home') ;
- 
-
-
+        return view('home',[
+            'posts' => Paper::with('author')->where('status','published')->where('is_selected',1)->limit(3)->get(),
+            'articles' => Paper::with('author')->where('status','published')->where('is_selected',1)->limit(6)->orderBy('id','desc')->get(),
+        ]);
     }
 
     /**

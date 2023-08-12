@@ -31,30 +31,50 @@
                                     <form method="POST" action="{{ route('paper.store') }}" class="Custom_Form"
                                         enctype="multipart/form-data">
                                         @csrf
+
+
                                         <div class="form-group">
                                             <label for="title">Title</label>
                                             <input type="text" class="form-control" name="title">
+                                            @error('title')
+                                                title
+                                            @enderror
                                         </div>
                                         <div class="form-group">
                                             <input type="hidden" class="form-control" name="authorId" value="{{ auth()->id() }}">
+                                            @error('authorId')
+                                            authorId
+                                        @enderror
                                         </div>
                                         <div class="form-group">
                                             <label for="category">Category</label>
                                             <input type="text" class="form-control" name="category">
+                                            @error('category')
+                                            category
+                                        @enderror
                                         </div>
                                         <div class="form-group">
                                             <label for="file">Article Upload</label>
                                             <input type="file" class="form-control-file" name="article">
                                             <small class="form-text text-muted">Max Size 3mb</small>
+                                            @error('article')
+                                            article
+                                        @enderror
                                         </div>
                                         <div class="form-group">
                                             <label for="file"> Cover photo Upload</label>
                                             <input type="file" class="form-control-file" name="coverPhoto">
                                             <small class="form-text text-muted">Max Size 2mb</small>
+                                            @error('coverPhoto')
+                                            {{ $message  }}
+                                        @enderror
                                         </div>
                                         <div class="form-group">
                                             <label for="body">Description</label>
                                             <textarea class="form-control" name="description"></textarea>
+                                            @error('description')
+                                            description
+                                        @enderror
                                         </div>
                                         <div class="card-footer">
                                             <button

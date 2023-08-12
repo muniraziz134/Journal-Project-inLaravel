@@ -18,7 +18,11 @@
     <link rel="stylesheet" href="{{ asset('css/all.min.css') }}">
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
 </head>
-
+<style>
+    body{
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    }
+</style>
 <body>
     <!-- header -->
     <main>
@@ -37,38 +41,31 @@
                     <div class="col-md-6">
                         <div class="d-flex flex-row justify-content-around">
                             <h4 class="text-white align-self-center d-none d-sm-block">
-                                {{ __('he_fo_nav.Title') }} <br /> {{ __('he_fo_nav.S_Title') }} 
+                                {{ __('he_fo_nav.Title') }} <br /> {{ __('he_fo_nav.S_Title') }}
                             </h4>
                             <img src="{{ asset('img/د مدرسې  لوګو.jpg') }}" alt="logo"
                                 class="rounded-circle imge-fluid d-none d-sm-block" width="80px" height="80px" />
                         </div>
                         <div class="dropdown">
-                           
+
                             <ul>
                                 <select onchange="changeLanguage(this)">
                                     @foreach (LaravelLocalization::getSupportedLocales() as $localeCode => $properties)
-                                        <option value="{{ $localeCode }}" @if (LaravelLocalization::getCurrentLocale() === $localeCode) selected @endif>
+                                        <option value="{{ LaravelLocalization::localizeUrl(url()->current(),$localeCode) }}" @if (LaravelLocalization::getCurrentLocale() === $localeCode) selected @endif>
                                             {{ $properties['native'] }}
                                         </option>
                                     @endforeach
                                 </select>
-                                
+
                                 <script>
                                     function changeLanguage(selectElement) {
-                                        const selectedLocale = selectElement.value;
-                                        const currentUrl = window.location.href;
-                                
-                                        // Use LaravelLocalization's JavaScript function to get the localized URL
-                                        const localizedUrl = LaravelLocalization.localizedUrl(selectedLocale, currentUrl);
-                                
-                                        // Redirect to the selected localized URL
-                                        window.location.href = localizedUrl;
+                                        window.location.href = selectElement.value;
                                     }
                                 </script>
-                                
-                                
+
+
                             </ul>
-                            
+
                         </div>
                     </div>
                 </div>
@@ -83,7 +80,7 @@
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav ml-auto">
                         <li class="nav-item active">
-        
+
                             <a href="{{ route('home') }}" class="nav-link">{{ __('he_fo_nav.home') }}</a>
                         </li>
                         <li class="nav-item">
@@ -101,9 +98,19 @@
                         <li class="nav-item">
                             <a href="{{ route('contact') }}" class="nav-link">{{ __('he_fo_nav.contact') }}</a>
                         </li>
+                        @auth
                         <li>
-                            <a href="{{route('dashboard') }}" class="nav-link">{{ __('he_fo_nav.dashboard')}}</a>
+                            <a href="@if (auth()->user()->role == 'admin')
+                            {{route('dashboard') }}
+                            @else
+                            {{route('memberdashboard') }}
+
+                            @endif" class="nav-link">{{ __('he_fo_nav.dashboard')}}</a>
                         </li>
+                        <li>
+                            <a href="{{route('profile.edit',auth()->id()) }}" class="nav-link">Profile</a>
+                        </li>
+                        @endauth
                     </ul>
 
                 </div>
@@ -271,9 +278,9 @@
         </section>
     </main>
     <!-- Javascripts scripts -->
-    <script src="js/jquery.min.js"></script>
-    <script src="js/popper.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/popper.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/ekko-lightbox/5.2.0/ekko-lightbox.js"></script>
-    <script src="js/main.js"></script>
+    <script src="/js/main.js"></script>
 </body>

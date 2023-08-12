@@ -11,15 +11,11 @@ class BlogController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
      */
     public function index()
     {
-        $papers = DB::table('papers')
-            ->join('users', 'users.id', '=', 'papers.author_id')->where('status', '=', 'published')->get();
-        // return $papers;
         return view('blog', [
-            'papers' => $papers,
+            'papers' => Paper::with('author')->where('status','published')->where('is_selected',1)->orderBy('id','desc')->get(),
         ]);
     }
 

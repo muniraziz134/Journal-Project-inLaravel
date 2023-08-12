@@ -35,7 +35,7 @@
                     <div class="col-md-6">
                         <div class="d-flex flex-row justify-content-around">
                             <h4 class="text-white align-self-center d-none d-sm-block">
-                                {{ __('he_fo_nav.Title') }} <br /> {{ __('he_fo_nav.S_Title') }} 
+                                {{ __('he_fo_nav.Title') }} <br /> {{ __('he_fo_nav.S_Title') }}
                             </h4>
                             <img src="{{ asset('img/د مدرسې  لوګو.jpg') }}" alt="logo"
                                 class="rounded-circle imge-fluid d-none d-sm-block" width="80px" height="80px" />
@@ -51,7 +51,7 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item active">
-        
+
                         <a href="{{ route('home') }}" class="nav-link">{{ __('he_fo_nav.home') }}</a>
                     </li>
                     <li class="nav-item">
@@ -69,9 +69,14 @@
                     <li class="nav-item">
                         <a href="{{ route('contact') }}" class="nav-link">{{ __('he_fo_nav.contact') }}</a>
                     </li>
-                    <li class="nav-item">
-                            <a href="{{ route('dashboard') }}" class="nav-link">{{ __('he_fo_nav.dashboard') }}</a>
+                   @auth
+                   <li class="nav-item">
+                    <a href="{{ route('dashboard') }}" class="nav-link">{{ __('he_fo_nav.dashboard') }}</a>
                     </li>
+                    <li class="nav-item">
+                        <a href="{{ route('profile.edit',auth()->id()) }}" class="nav-link"> Profile </a>
+                    </li>
+                   @endauth
                 </ul>
             </div>
             @auth

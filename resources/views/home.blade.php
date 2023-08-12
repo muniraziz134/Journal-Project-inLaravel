@@ -105,61 +105,27 @@
                 <h2>{{__ ('home.newPost')}}</h2>
             </div>
             <div class="row">
-                <div class="col-md">
-                    <div class="card bg-dark text-light mb-3">
-                        <div class="">
-                            <img src="{{ asset('img/mohammad (1).gif') }}" height="250rem" class="card-img-top imge-fluid"
-                                alt="">
-                        </div>
-                        <div class="card-body text-center">
 
-                            <h3 class="card-title mb-3">Tafseer of Holy quran</h3>
-                            <div>
-                                <p>Muhammad Taqi Usmani</span></p>
-                            </div>
-                            <p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Tenetur
-                                blanditiis rerum assumenda modi quasi eligendi.
-                            </p>
-                            <button class="btn btn-warning">Read more</button>
-                        </div>
-                    </div>
-                </div>
+                @foreach ($posts as $post)
                 <div class="col-md">
                     <div class="card bg-dark text-light mb-3">
                         <div class="">
-                            <img src="{{ asset('img/mohammad (2).jpg') }}" height="250rem" class="card-img-top imge-fluid"
+                            <img src="{{ asset($post->coverPhoto) }}" height="250rem" class="card-img-top imge-fluid"
                                 alt="">
                         </div>
-                        <div class="card-body text-center">
-                            <h3 class="card-title mb-3">Tafseer of Holy quran</h3>
+                        <div class="card-body text-justify">
+
+                            <h3 class="card-title mb-3">{{  $post->title }}</h3>
                             <div>
-                                <p>Muhammad Taqi Usmani</span></p>
+                                <p>{{ $post->author->firstName }}</span></p>
                             </div>
-                            <p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Tenetur
-                                blanditiis rerum assumenda modi quasi eligendi.
+                            <p class="card-text">{{ $post->description }}
                             </p>
-                            <button class="btn btn-warning">Read more</button>
+                            <a href="{{ LaravelLocalization::localizeUrl(route('paper.show',$post->id),LaravelLocalization::getCurrentLocale()) }}" class="btn btn-warning">Read more</a>
                         </div>
                     </div>
                 </div>
-                <div class="col-md">
-                    <div class="card bg-dark text-light mb-3">
-                        <div class="">
-                            <img src="{{ asset('img/mohammad (5).jpg') }}" height="250rem" class="card-img-top imge-fluid"
-                                alt="">
-                        </div>
-                        <div class="card-body text-center">
-                            <h3 class="card-title mb-3">Tafseer of Holy quran</h3>
-                            <div>
-                                <p>Muhammad Taqi Usmani</p>
-                            </div>
-                            <p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Tenetur
-                                blanditiis rerum assumenda modi quasi eligendi.
-                            </p>
-                            <button class="btn btn-warning">Read more</button>
-                        </div>
-                    </div>
-                </div>
+                @endforeach
             </div>
         </div>
     </section>
@@ -214,38 +180,21 @@
             <h1 class="text-center">{{__ ('home.Article')}}</h1>
             <p class="text-center">{{__ ('home.papuler')}}</p>
             <div class="row mb-4">
-                <div class="col-md-4 mb-3">
-                    <img src="{{ asset('img/best1.jpg') }}" alt="" class="img-fluid">
-                    <div><span style="font-weight: bold;">Title:</span> Tafseer Bizawi</div>
-                    <div><span style="font-weight: bold;">Auther:</span>Omer Mukhtar</div>
-                </div>
-                <div class="col-md-4 mb-3">
-                    <img src="{{ asset('img/best2.jpg') }}" alt="" class="img-fluid">
-                    <div><span style="font-weight: bold;">Title:</span> Tasfseer Ibnkaseer</div>
-                    <div><span style="font-weight: bold;">Auther:</span>Jamaludin</div>
-                </div>
-                <div class="col-md-4 mb-3">
-                    <img src="{{ asset('img/best3.jpg') }}" alt="" class="img-fluid">
-                    <div><span style="font-weight: bold;">Title:</span>Quran karim wonderment</div>
-                    <div><span style="font-weight: bold;">Auther:</span>Ibn Ahmad</div>
+
+
+            @foreach ($articles as $article)
+            <div class="col-md-4 mb-3">
+                <div class="card">
+                    <img src="{{ asset($article->coverPhoto) }}" style="height: 30vh" alt="" class="img-fluid">
+                    <div class="card-body">
+                       <center> <h3><b>{{ $article->title }}</b></h3>
+                        <h5>{{ $article->author->firstName }}</h5>
+                        <a href="{{ LaravelLocalization::localizeUrl(route('paper.show',$article->id),LaravelLocalization::getCurrentLocale()) }}" style="margin-top: 30px" class="btn btn-warning">Read more</a></center>
+                    </div>
                 </div>
             </div>
-            <div class="row mb-4">
-                <div class="col-md-4 mb-3">
-                    <img src="{{ asset('img/best4.jpg') }}" alt="" class="img-fluid">
-                    <div><span style="font-weight: bold;">Title:</span>Quran karim wonderment</div>
-                    <div><span style="font-weight: bold;">Auther:</span>Ibn Ahmad</div>
-                </div>
-                <div class="col-md-4 mb-3">
-                    <img src="{{ asset('img/best5.jpg') }}" alt="" class="img-fluid">
-                    <div><span style="font-weight: bold;">Title:</span>Quran karim wonderment</div>
-                    <div><span style="font-weight: bold;">Auther:</span>Ibn Ahmad</div>
-                </div>
-                <div class="col-md-4 mb-3">
-                    <img src="{{ asset('img/best7.jpg') }}" alt="" class="img-fluid">
-                    <div><span style="font-weight: bold;">Title:</span>Quran karim wonderment</div>
-                    <div><span style="font-weight: bold;">Auther:</span>Ibn Ahmad</div>
-                </div>
+            @endforeach
+
             </div>
         </div>
     </section>
@@ -253,3 +202,4 @@
 @section('title')
     Home
 @endsection
+

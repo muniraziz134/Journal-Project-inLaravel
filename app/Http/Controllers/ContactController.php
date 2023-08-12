@@ -89,6 +89,8 @@ class ContactController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Contact::destroy($id);
+
+        return redirect()->back()->with('success','success');
     }
 }

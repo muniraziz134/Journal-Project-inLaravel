@@ -20,6 +20,8 @@ return new class extends Migration {
             $table->string('description')->nullable();
             $table->string('article')->nullable();
             $table->string('status')->default('pending');
+            $table->boolean('is_selected')->default(1);
+            //$table->string()
             $table->foreignId('author_id')->constrained('users')->onDelete('cascade');
             $table->timestamps();
         });

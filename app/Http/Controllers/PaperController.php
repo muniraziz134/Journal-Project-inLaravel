@@ -19,6 +19,14 @@ class PaperController extends Controller
         return view('paper.index', compact('paper'))->with('p', (request()->input('page', 1) - 1) * 5);
     }
 
+    public function ToggleJournalToView(Request $request)
+    {
+        $paper = Paper::find($request->id);
+        $paper->is_selected = !$paper->is_selected;
+        $paper->save();
+
+        return response()->json('success',200);
+    }
     /**
      * Show the form for creating a new resource.
      *
@@ -26,8 +34,11 @@ class PaperController extends Controller
      */
     public function create()
     {
-
-        return view('addpaper');
+        if(auth()->check())
+        {
+            return view('addpaper');
+        }
+        return redirect()->route('login');
     }
 
     /**
@@ -47,24 +58,25 @@ class PaperController extends Controller
             'article' => 'required|file',
         ]);
         if ($request->hasFile('coverPhoto')) {
-            $fileNameWithExt = $request->file('coverPhoto')->getClientOriginalName();
-            $filename = pathinfo($fileNameWithExt, PATHINFO_FILENAME);
+            $filenameWithExt = $request->file('coverPhoto')->getClientOriginalName();
+            $filename = pathinfo($filenameWithExt,PATHINFO_FILENAME);
             $extension = $request->file('coverPhoto')->getClientOriginalExtension();
-            $name = time() . '.' . $extension;
-            $image = $request->file('coverPhoto')->storeAs('public/Paper', $name);
-            $coverPhoto = '/storage/Paper/' . $name;
+            $photoName = 'coverPhoto'.time().'.'.$extension;
+            $coverPhoto = '/storage/coverPhoto/'.$photoName;
+            $request->file("coverPhoto")->move("storage/coverPhoto",$photoName);
 
         } else {
             $coverPhoto = '';
         }
 
         if ($request->hasFile('article')) {
-            $fileNameWithExt = $request->file('article')->getClientOriginalName();
-            $filename = pathinfo($fileNameWithExt, PATHINFO_FILENAME);
+            $filenameWithExt = $request->file('article')->getClientOriginalName();
+            $filename = pathinfo($filenameWithExt,PATHINFO_FILENAME);
             $extension = $request->file('article')->getClientOriginalExtension();
-            $name = time() . '.' . $extension;
-            $image = $request->file('article')->storeAs('public/Paper', $name);
-            $article = '/storage/Paper/' . $name;
+            $photoName = 'article'.time().'.'.$extension;
+            $article = '/storage/article/'.$photoName;
+            $request->file("article")->move("storage/article",$photoName);
+
         } else {
             $article = '';
         }
@@ -76,7 +88,6 @@ class PaperController extends Controller
         $paper->description = $request->description;
         $paper->coverPhoto = $coverPhoto;
         $paper->article = $article;
-
         $paper->save();
         return redirect()->route('home');
     }
@@ -92,8 +103,8 @@ class PaperController extends Controller
     {
         $paper = Paper::find($id);
 
-        return view('paper.show', [
-            'Paper' => $paper,
+        return view('paper-show', [
+            'paper' => $paper,
         ]);
     }
 
@@ -144,10 +155,12 @@ class PaperController extends Controller
      */
     public function destroy($id)
     {
-        $paper = Paper::find($id);
-        $paper->delete();
+        Paper::destroy($id);
 
-        return redirect()->route('paper.index');
+
+        return request()->wantsJson()
+        ? response()->json('success',200)
+        :redirect()->route('paper.index');
     }
 
     /**
@@ -162,7 +175,9 @@ class PaperController extends Controller
         $paper = Paper::find($id);
         $paper->status = 'published';
         $paper->save();
-        return redirect()->route('blog');
+        return request()->wantsJson()
+        ? response()->json('success',200)
+        : redirect()->route('blog');
     }
 
     /**
